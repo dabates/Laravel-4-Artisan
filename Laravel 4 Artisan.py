@@ -52,9 +52,8 @@ class Laravel4ArtisanCommand(sublime_plugin.WindowCommand):
 
     def on_fields(self, fields):
         if fields != '':
-            ##Note: found that when doing resources, some issues happened, added below
             self.args.append('--fields=')
-            self.args.append('"' + fields + '""') ## When using multiple fields, we need quotes on the fields
+            self.args.append(fields)
             self.args.append('-n') ## non-interactive
             self.on_done()
         else:
@@ -65,8 +64,8 @@ class Laravel4ArtisanCommand(sublime_plugin.WindowCommand):
         self.on_done()
 
     def on_done(self):
-        if os.name != 'posix':
-            self.args = subprocess.list2cmdline(self.args)
+        #if os.name != 'posix':
+            #self.args = subprocess.list2cmdline(self.args).replace('"--fields', '--fields').replace('" -n', '-n').replace('\"', '"')
         try:
             self.window.run_command("exec", {
                 "cmd": self.args,

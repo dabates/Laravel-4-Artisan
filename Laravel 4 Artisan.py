@@ -52,8 +52,10 @@ class Laravel4ArtisanCommand(sublime_plugin.WindowCommand):
 
     def on_fields(self, fields):
         if fields != '':
+            ##Note: found that when doing resources, some issues happened, added below
             self.args.append('--fields=')
-            self.args.append(fields)
+            self.args.append('"' + fields + '""') ## When using multiple fields, we need quotes on the fields
+            self.args.append('-n') ## non-interactive
             self.on_done()
         else:
             self.on_done()
